@@ -356,6 +356,12 @@ let answered = false;
 let shuffledQuestions = [];
 let playerName = "PLAYER1";
 let sourceNote = "LOCAL";
+let runMeta = {
+  source: "LOCAL",
+  category: "MIXED",
+  difficulty: "ANY",
+  language: "EN"
+};
 
 // ---------- DOM refs ----------
 const screens = {
@@ -445,6 +451,10 @@ function addRanking(score, total) {
     name: playerName,
     score,
     total,
+    source: runMeta.source,
+    category: runMeta.category,
+    difficulty: runMeta.difficulty,
+    language: runMeta.language,
     time: Date.now()
   });
   list.sort((a, b) => b.score - a.score || b.total - a.total || a.time - b.time);
@@ -459,9 +469,16 @@ function renderRankings() {
   }
   const rows = list.map((r, i) => {
     const pct = r.total ? Math.round((r.score / r.total) * 100) : 0;
-    return `${String(i + 1).padStart(2, "0")}  ${r.name.padEnd(12, ".")}  ${String(r.score).padStart(2, "0")}/${String(r.total).padStart(2, "0")}  ${String(pct).padStart(3, " ")}%`;
+    const cat = (r.category || "MIXED").slice(0, 22);
+    const diff = (r.difficulty || "ANY").slice(0, 6);
+    const line = `${String(i + 1).padStart(2, "0")}  ${r.name.padEnd(12, ".")}  ${String(r.score).padStart(2, "0")}/${String(r.total).padStart(2, "0")}  ${String(pct).padStart(3, " ")}%`;
+    const sub = `     ${cat.padEnd(22, ".")}  ${r.language || "EN"}  ${r.source || "-"}  ${diff}`;
+    return line + "\n" + sub;
   });
-  const header = "#   NAME         SCORE   %\n" + "-".repeat(30);
+  const header =
+    `#   NAME         SCORE   %\n` +
+    `${"-".repeat(30)}\n` +
+    `    CATEGORY                LANG  SOURCE  DIFF`;
   rankTable.textContent = header + "\n" + rows.join("\n");
 }
 
@@ -542,6 +559,13 @@ async function startGame() {
   const cat = CATEGORIES.find(c => c.id === category);
   const lang = LANGUAGES.find(l => l.code === language) || LANGUAGES[0];
   const langTag = lang ? ` / ${lang.name.split(" / ")[1]}` : "";
+
+  runMeta = {
+    source: source === "unlimited" ? "ONLINE" : "LOCAL",
+    category: cat ? cat.name : "MIXED",
+    difficulty: difficulty === "any" ? "ANY" : difficulty.toUpperCase(),
+    language: lang ? lang.code.toUpperCase() : "EN"
+  };
 
   btnStart.disabled = true;
   btnStart.textContent = "[ LOADING... ]";
