@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUIZ.EXE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="crt">
+    <div class="scanlines"></div>
+    <div class="crt-glow"></div>
+
+    <div class="console">
+
+      <!-- Header bar -->
+      <header class="titlebar">
+        <span class="titlebar-dot"></span>
+        <span class="titlebar-dot"></span>
+        <span class="titlebar-dot"></span>
+        <h1 class="titlebar-text">QUIZ.EXE — ONE BILLION TRIVIA MODULE</h1>
+      </header>
+
+      <!-- START SCREEN -->
+      <section id="screen-start" class="screen active">
+        <pre class="ascii-logo" aria-hidden="true">
+ ______     __  __     __     ______
+/\  __ \   /\ \/\ \   /\ \   /\___  \
+\ \ \/\ \  \ \ \_\ \  \ \ \  \/_/  /__
+ \ \_____\  \ \_____\  \ \_\   /\_____\
+  \/_____/   \/_____/   \/_/   \/_____/
+        </pre>
+        <p class="blurb">UNLIMITED QUESTIONS. EVERY CATEGORY. NO MERCY. NO GOOGLING.</p>
+
+        <div class="field-row">
+          <label for="player-name">ENTER NAME&gt;</label>
+          <input type="text" id="player-name" maxlength="12" placeholder="PLAYER1" autocomplete="off">
+        </div>
+
+        <div class="setup-grid">
+          <div class="field-row-stacked">
+            <label for="quiz-source">SOURCE&gt;</label>
+            <select id="quiz-source">
+              <option value="bank">LOCAL DATABASE</option>
+              <option value="unlimited" selected>UNLIMITED ONLINE (LIVE)</option>
+            </select>
+          </div>
+
+          <div class="field-row-stacked">
+            <label for="quiz-category">CATEGORY&gt;</label>
+            <select id="quiz-category"></select>
+          </div>
+
+          <div class="field-row-stacked">
+            <label for="quiz-language">LANGUAGE&gt;</label>
+            <select id="quiz-language"></select>
+          </div>
+
+          <div class="field-row-stacked" id="difficulty-row">
+            <label for="quiz-difficulty">DIFFICULTY&gt;</label>
+            <select id="quiz-difficulty">
+              <option value="any" selected>ANY</option>
+              <option value="easy">EASY</option>
+              <option value="medium">MEDIUM</option>
+              <option value="hard">HARD</option>
+            </select>
+          </div>
+
+          <div class="field-row-stacked field-count">
+            <label for="quiz-count">COUNT&gt;</label>
+            <select id="quiz-count">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="0" selected>MAX / ALL</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btn-start" class="btn btn-primary">[ PRESS START ]</button>
+          <button id="btn-rank" class="btn">[ RANKING ]</button>
+        </div>
+
+        <p class="name-error" id="name-error" hidden>! ENTER YOUR NAME FIRST, OPERATOR.</p>
+
+        <div class="highscore-box" id="highscore-box">
+          <span>HIGH SCORE: <strong id="highscore-value">0</strong></span>
+          <span id="source-status"></span>
+        </div>
+      </section>
+
+      <!-- RANKING SCREEN -->
+      <section id="screen-rank" class="screen">
+        <h2 class="result-heading">TOP OPERATORS</h2>
+        <pre class="rank-table" id="rank-table">NO RECORDS YET.</pre>
+        <button id="btn-rank-back" class="btn btn-primary">[ BACK ]</button>
+      </section>
+
+      <!-- QUIZ SCREEN -->
+      <section id="screen-quiz" class="screen">
+        <div class="hud">
+          <span>SCORE: <strong id="hud-score">0</strong></span>
+          <span id="hud-progress">Q 01/10</span>
+          <span>TIME: <strong id="hud-timer">15</strong>s</span>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <h2 class="question-text" id="question-text">Loading question…</h2>
+
+        <div class="options" id="options-container"></div>
+
+        <p class="feedback" id="feedback-text">&nbsp;</p>
+
+        <button id="btn-next" class="btn btn-secondary" disabled>[ NEXT&nbsp;&gt;&gt; ]</button>
+      </section>
+
+      <!-- RESULT SCREEN -->
+      <section id="screen-result" class="screen">
+        <h2 class="result-heading" id="result-heading">GAME OVER</h2>
+        <pre class="score-block" id="score-block">00 / 10</pre>
+        <p class="result-message" id="result-message"></p>
+        <button id="btn-restart" class="btn btn-primary">[ PLAY AGAIN ]</button>
+      </section>
+
+      <footer class="statusbar">
+        <span id="status-left">READY.</span>
+        <span id="status-right">MEM: 640K OK</span>
+      </footer>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
