@@ -1,7 +1,4 @@
-// ============================================
-// QUIZ.EXE — game logic (simple edition)
-// 10 local English questions
-// ============================================
+
 
 const QUESTIONS = [
   { q: "What does 'HTTP' stand for?", options: ["HyperText Transfer Protocol", "High Transfer Text Program", "Home Tool Transport Process", "HyperLink Text Transmission"], correct: 0 },
@@ -147,7 +144,7 @@ function startTimer() {
     }
     if (timeLeft <= 0) {
       clearInterval(timerId);
-      selectAnswer(-1); // time's up, no selection
+      selectAnswer(-1);
     }
   }, 1000);
 }
