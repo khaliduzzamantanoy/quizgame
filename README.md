@@ -1,4 +1,4 @@
-# QUIZ.EXE
+# QUIZ.EXE v1
 
 A retro monochrome terminal-style quiz game.
 
